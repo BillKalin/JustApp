@@ -1,0 +1,3 @@
+apply from:"../build-script/library.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'

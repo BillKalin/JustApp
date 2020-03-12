@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -7,11 +7,11 @@ android {
     buildToolsVersion rootProject.ext.versions.buildToolsVersion
 
     defaultConfig {
-        applicationId rootProject.ext.versions.applicationId
         minSdkVersion rootProject.ext.versions.minSdkVersion
         targetSdkVersion rootProject.ext.versions.targetSdkVersion
-        versionCode rootProject.ext.versions.versionCode
-        versionName  rootProject.ext.versions.versionName
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -28,6 +28,4 @@ dependencies {
     implementation rootProject.ext.androidx.kotlinStdlib
     implementation rootProject.ext.androidx.appcompat
     implementation rootProject.ext.androidx.ktx
-    implementation rootProject.ext.androidx.constraintlayout
-    implementation project(path: ':performance')
 }
