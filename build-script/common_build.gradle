@@ -1,0 +1,22 @@
+rootProject.ext {
+    versions = [
+            versionCode            : 1,
+            versionName            : "1.0.0",
+            applicationId          : "com.billkalin.justapp",
+            compileSdkVersion      : 28,
+            buildToolsVersion      : "28.0.3",
+            minSdkVersion          : 21,
+            targetSdkVersion       : 28,
+            androidxVersion        : "1.1.0",
+            kotlinVersion          : "1.3.70",
+            ktxVersion             : "1.2.0",
+            constraintlayoutVersion: "1.1.3"
+    ]
+
+    androidx = [
+            appcompat       : "androidx.appcompat:appcompat:${versions.androidxVersion}",
+            kotlinStdlib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlinVersion}",
+            ktx             : "androidx.core:core-ktx:${versions.ktxVersion}",
+            constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintlayoutVersion}"
+    ]
+}
