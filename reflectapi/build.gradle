@@ -1,0 +1,25 @@
+apply from: "../build-script/library.gradle"
+
+android {
+    defaultConfig {
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11"
+                arguments '-DANDROID_STL=c++_static'
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            jniDebuggable true
+        }
+        release {
+            jniDebuggable false
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path file("src/main/jni/CMakeLists.txt")
+        }
+    }
+}

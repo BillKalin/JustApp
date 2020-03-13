@@ -1,3 +1,4 @@
 rootProject.name='JustApp'
 include ':app'
 include ':performance'
+include ':reflectapi'
