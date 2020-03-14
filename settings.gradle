@@ -1,4 +1,6 @@
 rootProject.name='JustApp'
 include ':app'
 include ':performance'
-include ':reflectapi'
+include ':openapi'
+include ':kreflect'
+include ':hook'

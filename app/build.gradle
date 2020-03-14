@@ -30,5 +30,6 @@ dependencies {
     implementation rootProject.ext.androidx.ktx
     implementation rootProject.ext.androidx.constraintlayout
     implementation project(path: ':performance')
-    implementation project(path: ':reflectapi')
+    implementation project(path: ':openapi')
+    implementation project(path: ':hook')
 }

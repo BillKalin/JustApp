@@ -4,8 +4,9 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.billkalin.hook.HookUtils
 import com.billkalin.justapp.R
-import com.billkalin.reflect.api.ReflectApi
+import com.billkalin.open.api.OpenApi
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 //        Thread.sleep(5000L)
 
         open_api.setOnClickListener {
-            val result = ReflectApi.openAllMethod()//ReflectApi.openApi(Build.VERSION_CODES.P) == 0
+            val result = OpenApi.open(false)
             Toast.makeText(
                 this,
                 if (result) "open hidden api success!" else "open hidden api failed!! result = $result",
@@ -34,6 +35,18 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(
                     this,
                     "call hidden api success!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        hook_api.setOnClickListener {
+            val result = OpenApi.open(false)
+            if (result) {
+                HookUtils.hookActivityInstrumentation()
+            } else {
+                Toast.makeText(
+                    this,
+                    if (result) "open hidden api success!" else "open hidden api failed!! result = $result",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -7,6 +7,6 @@
 
 extern "C"
 JNIEXPORT jint JNICALL
-Java_com_billkalin_reflect_api_ReflectApi_openApi(JNIEnv *env, jobject type, jint targetSdkVersion) {
+Java_com_billkalin_open_api_NativeOpenApi_openApi(JNIEnv *env, jobject type, jint targetSdkVersion) {
     return openApi(env, targetSdkVersion);
 }

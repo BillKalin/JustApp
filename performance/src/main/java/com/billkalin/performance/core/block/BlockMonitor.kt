@@ -6,15 +6,12 @@ import com.billkalin.performance.BuildConfig
 
 class BlockMonitor : Printer {
 
-    var isStart = false
-    var startTime = 0L
+    private var isStart = false
+    private var startTime = 0L
 
-    private val mStackSampler =
-        StackSampler()
+    private val mStackSampler = StackSampler()
 
-    companion object {
-        const val MAX_BLOCK_TIME = 200L
-    }
+    var mBlockTimeThreshold = 200L
 
     override fun println(x: String?) {
         isStart = !isStart
@@ -24,7 +21,7 @@ class BlockMonitor : Printer {
         } else {
             val endTime = System.currentTimeMillis()
             val duration = endTime - startTime
-            if (duration >= MAX_BLOCK_TIME) {
+            if (duration >= mBlockTimeThreshold) {
                 val info = mStackSampler.getThreadStackInfo(startTime, endTime)
                 if (BuildConfig.DEBUG) {
                     Log.e(
