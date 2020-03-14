@@ -26,7 +26,8 @@
    ```java
    //反射某个类，并获取对象
    KQuietReflect.on("android.app.ActivityThread").method("currentActivityThread").call<Any>()
-   ~~~
+   ```
+   
 ## hook library
 
   Hook相关代码    
