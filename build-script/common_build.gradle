@@ -19,4 +19,17 @@ rootProject.ext {
             ktx             : "androidx.core:core-ktx:${versions.ktxVersion}",
             constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintlayoutVersion}"
     ]
+
+    def allDesList = []
+    allDesList.addAll(androidx.values())
+
+    allDependencies = [:]
+    allDesList.each { des ->
+        strs = des.split(":")
+        if (strs.length >= 3) {
+            key = strs[0] + ":" + strs[1]
+            value = strs[2].replace("@aar", "")
+            allDependencies[key] = value
+        }
+    }
 }
