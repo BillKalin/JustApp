@@ -31,5 +31,8 @@
 ## hook library
 
   Hook相关代码    
-  
+
+## base app asm/plugin/spi
+
+  gradle 插件架构，便于新增自定义gradle插件，参考滴滴出行的[booster](https://github.com/didi/booster)开源项目
   

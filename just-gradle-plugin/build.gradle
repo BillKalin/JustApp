@@ -1,0 +1,19 @@
+apply from: "../build-script/plugin.gradle"
+apply plugin: 'maven'
+
+dependencies {
+    implementation gradleApi()
+    implementation "com.android.tools.build:gradle:3.6.1"
+    api project(path: ':just-app-common')
+}
+
+group = 'com.just.app.plugin'
+version = '1.0.0'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../plugin'))
+        }
+    }
+}

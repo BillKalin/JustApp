@@ -1,0 +1,6 @@
+apply from: '../build-script/plugin.gradle'
+
+dependencies {
+    implementation gradleApi()
+    implementation "com.android.tools.build:gradle:3.6.1"
+}

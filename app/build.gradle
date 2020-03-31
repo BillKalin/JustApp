@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'just-app-plugin'
+apply plugin: 'just-gradle-plugin'
 
 android {
-    compileSdkVersion  rootProject.ext.versions.compileSdkVersion
+    compileSdkVersion rootProject.ext.versions.compileSdkVersion
     buildToolsVersion rootProject.ext.versions.buildToolsVersion
 
     defaultConfig {
@@ -12,16 +12,26 @@ android {
         minSdkVersion rootProject.ext.versions.minSdkVersion
         targetSdkVersion rootProject.ext.versions.targetSdkVersion
         versionCode rootProject.ext.versions.versionCode
-        versionName  rootProject.ext.versions.versionName
+        versionName rootProject.ext.versions.versionName
     }
 
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
+    packagingOptions {
+        exclude "*/kotlin/**"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
