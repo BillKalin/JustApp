@@ -3,11 +3,17 @@ package com.base.app.spi.util
 import java.io.File
 import java.util.concurrent.RecursiveTask
 
-class FileTask(private val roots: Iterable<File>) : RecursiveTask<Collection<File>>() {
+class FileTask(
+    private val roots: Iterable<File>,
+    private val filter: (File) -> Boolean = { true }
+) : RecursiveTask<Collection<File>>() {
 
-    constructor(files: Array<File>) : this(files.toList())
+    constructor(files: Array<File>, filter: (File) -> Boolean = { true }) : this(
+        files.toList(),
+        filter
+    )
 
-    constructor(file: File) : this(listOf(file))
+    constructor(file: File, filter: (File) -> Boolean = { true }) : this(listOf(file), filter)
 
     override fun compute(): Collection<File> {
         val result = mutableListOf<File>()
@@ -15,12 +21,14 @@ class FileTask(private val roots: Iterable<File>) : RecursiveTask<Collection<Fil
         roots.forEach {
             if (it.isDirectory) {
                 it.listFiles()?.let { files ->
-                    FileTask(files.asIterable()).also { task ->
+                    FileTask(files.asIterable(), filter).also { task ->
                         tasks.add(task)
                     }.fork()
                 }
             } else {
-                result.add(it)
+                if (filter.invoke(it)) {
+                    result.add(it)
+                }
             }
         }
         return result + tasks.flatMap {
@@ -29,11 +37,14 @@ class FileTask(private val roots: Iterable<File>) : RecursiveTask<Collection<Fil
     }
 }
 
-fun File.search(): Collection<File> = FileTask(this).execute()
+fun File.search(filter: (File) -> Boolean = { true }): Collection<File> =
+    FileTask(this, filter).execute()
 
-fun Iterable<File>.search(): Collection<File> = FileTask(this).execute()
+fun Iterable<File>.search(filter: (File) -> Boolean = { true }): Collection<File> =
+    FileTask(this, filter).execute()
 
-fun Array<File>.search(): Collection<File> = FileTask(this).execute()
+fun Array<File>.search(filter: (File) -> Boolean = { true }): Collection<File> =
+    FileTask(this, filter).execute()
 
 fun File.touch(): File {
     if (!exists()) {

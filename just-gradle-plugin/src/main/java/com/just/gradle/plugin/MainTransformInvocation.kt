@@ -166,7 +166,7 @@ class MainTransformInvocation(
     override val runtimeClasspath: Collection<File>
         get() = delegate.runtimeClasspath
     override val artifacts: ArtifactManager
-        get() = this
+        get() = variant.artifacts
 
     //    override val klassPool: KlassPool
 //        get() = TODO("Not yet implemented")
@@ -178,6 +178,10 @@ class MainTransformInvocation(
         get() = delegate.isDebuggable
     override val isDataBindingEnabled: Boolean
         get() = delegate.isDataBindingEnabled
+
+    override fun get(type: String): Collection<File> {
+        return artifacts.get(type)
+    }
 
     override fun hasProperty(name: String): Boolean = project.hasProperty(name)
 
