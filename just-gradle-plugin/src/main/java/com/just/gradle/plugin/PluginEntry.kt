@@ -9,7 +9,6 @@ import java.util.*
 
 public class PluginEntry : Plugin<Project> {
     override fun apply(project: Project) {
-        println("PluginEntry: apply()")
         when {
             project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.dynamic-feature") -> {
                 project.extensions.getByType(AppExtension::class.java).let { appExtension ->

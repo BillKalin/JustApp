@@ -34,8 +34,11 @@ fun File.transform(output: File, transformer: (ByteArray) -> ByteArray = { it ->
                 }
                 "class" -> {
                     this.inputStream().use {
-                        it.transform(transformer)
+                        it.transform(transformer).redirect(output)
                     }
+                }
+                else -> {
+                    this.copyTo(output, true)
                 }
             }
         }

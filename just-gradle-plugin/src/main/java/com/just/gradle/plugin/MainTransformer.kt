@@ -22,10 +22,6 @@ class MainTransformer(private val project: Project) : Transform() {
     override fun isCacheable(): Boolean = true
 
     override fun getScopes(): MutableSet<in QualifiedContent.Scope> = when {
-//        transformers.isEmpty() -> {
-//            println("MainTransformer: getScopes() transformers.isEmpty()")
-//            mutableSetOf()
-//        }
         project.plugins.hasPlugin("com.android.application") -> TransformManager.SCOPE_FULL_PROJECT
         project.plugins.hasPlugin("com.android.library") -> TransformManager.PROJECT_ONLY
         project.plugins.hasPlugin("com.android.dynamic-feature") -> TransformManager.SCOPE_FEATURES
@@ -36,7 +32,6 @@ class MainTransformer(private val project: Project) : Transform() {
 
     override fun getReferencedScopes(): MutableSet<in QualifiedContent.Scope> {
         return when {
-//            transformers.isEmpty() -> return mutableSetOf()
             project.plugins.hasPlugin("com.android.application") -> TransformManager.SCOPE_FULL_PROJECT
             project.plugins.hasPlugin("com.android.library") -> TransformManager.PROJECT_ONLY
             project.plugins.hasPlugin("com.android.dynamic-feature") -> TransformManager.SCOPE_FEATURES
@@ -47,7 +42,6 @@ class MainTransformer(private val project: Project) : Transform() {
     }
 
     override fun transform(transformInvocation: TransformInvocation) {
-        println("MainTransformer: transform() transformInvocation = $transformInvocation")
         MainTransformInvocation(transformInvocation, this).apply {
             if (isIncremental) {
                 doIncrementalTransform()
