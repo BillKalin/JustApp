@@ -22,11 +22,14 @@ class PermissionVariantProcessor : VariantProcessor {
 
         val tasks = variant.project.tasks
 //        val permissionTask = tasks.findByName(TASK_NAME) ?: tasks.create(TASK_NAME)
-        tasks.create(TASK_NAME, PermissionTask::class.java)
-            .also { task ->
-                tasks.findByName("process${variant.name.capitalize()}Manifest")?.doLast {
-                    task.run()
+        if (tasks.findByName(TASK_NAME) == null) {
+            tasks.create(TASK_NAME, PermissionTask::class.java)
+                .also { task ->
+                    task.variant = variant
+                    tasks.findByName("process${variant.name.capitalize()}Manifest")?.doLast {
+                        task.run()
+                    }
                 }
-            }
+        }
     }
 }
