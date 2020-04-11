@@ -29,5 +29,11 @@
       <version>1.0.0</version>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>com.just.app.plugin</groupId>
+      <artifactId>just-app-common</artifactId>
+      <version>1.0.0</version>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
 </project>

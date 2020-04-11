@@ -68,20 +68,20 @@ public class RInlineTransform : ClassTransformer {
         }*/
     }
 
-   /* private fun TransformContext.getRClassFile(): List<Pair<File, String>> {
-        return artifacts.get(ArtifactManager.ALL_CLASSES).map { classes ->
-            val baseUri = classes.toURI()
-            classes.search { r ->
-                r.name.startsWith("R") && r.name.endsWith(".class") && (r.name[1] == '$' || r.name.length == 7)
-            }.map { r ->
-                r to baseUri.relativize(r.toURI()).path.substringBefore(".class")
-            }
-        }.flatten().filter {
-            it.second != appRStylable
-        }.filter {
-            true
-        }
-    }*/
+    /* private fun TransformContext.getRClassFile(): List<Pair<File, String>> {
+         return artifacts.get(ArtifactManager.ALL_CLASSES).map { classes ->
+             val baseUri = classes.toURI()
+             classes.search { r ->
+                 r.name.startsWith("R") && r.name.endsWith(".class") && (r.name[1] == '$' || r.name.length == 7)
+             }.map { r ->
+                 r to baseUri.relativize(r.toURI()).path.substringBefore(".class")
+             }
+         }.flatten().filter {
+             it.second != appRStylable
+         }.filter {
+             true
+         }
+     }*/
 
     override fun transform(context: TransformContext, klass: ClassNode): ClassNode {
         if (symbols.isEmpty())

@@ -10,6 +10,7 @@ import com.android.build.gradle.internal.pipeline.TransformTask
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.AnchorOutputType
 import com.android.build.gradle.internal.scope.InternalArtifactType
+import com.android.build.gradle.internal.scope.VariantScope
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.base.app.spi.transformer.ArtifactManager
 import org.gradle.api.Project
@@ -81,8 +82,11 @@ val TransformInvocation.isDebuggable: Boolean
 val TransformInvocation.isDataBindingEnabled: Boolean
     get() = project.getAndroid<BaseExtension>().dataBinding.isEnabled
 
-val BaseVariant.scope
+val BaseVariant.scope: VariantScope
     get() = variantData.scope
+
+val BaseVariant.project: Project
+    get() = scope.globalScope.project
 
 val BaseVariant.artifacts: ArtifactManager
     get() = object : ArtifactManager {
