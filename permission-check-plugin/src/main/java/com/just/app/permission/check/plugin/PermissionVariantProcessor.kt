@@ -1,4 +1,4 @@
-package com.just.app.r.inline.plugin
+package com.just.app.permission.check.plugin
 
 import com.android.build.gradle.api.BaseVariant
 import com.android.builder.core.VariantTypeImpl
@@ -8,7 +8,7 @@ import com.base.app.spi.util.variantData
 import com.google.auto.service.AutoService
 
 @AutoService(VariantProcessor::class)
-class PermissionVariantProcessor : VariantProcessor {
+open class PermissionVariantProcessor : VariantProcessor {
 
     companion object {
         private const val TASK_NAME = "PermissionChecker"

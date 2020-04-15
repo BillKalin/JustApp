@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>com.just.app.plugin</groupId>
-  <artifactId>r-inline-plugin</artifactId>
+  <artifactId>permission-check-plugin</artifactId>
   <versioning>
     <release>1.0.0</release>
     <versions>
       <version>1.0.0</version>
     </versions>
-    <lastUpdated>20200415064642</lastUpdated>
+    <lastUpdated>20200415065524</lastUpdated>
   </versioning>
 </metadata>
