@@ -16,12 +16,10 @@ open class PermissionVariantProcessor : VariantProcessor {
 
     override fun process(variant: BaseVariant) {
         val variantType = variant.variantData.type as VariantTypeImpl
-        println("PermissionVariantProcessor: variantType = $variantType")
         if (variantType == VariantTypeImpl.FEATURE)
             return
 
         val tasks = variant.project.tasks
-//        val permissionTask = tasks.findByName(TASK_NAME) ?: tasks.create(TASK_NAME)
         if (tasks.findByName(TASK_NAME) == null) {
             tasks.create(TASK_NAME, PermissionTask::class.java)
                 .also { task ->
