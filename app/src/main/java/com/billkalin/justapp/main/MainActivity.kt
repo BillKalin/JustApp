@@ -22,34 +22,34 @@ class MainActivity : AppCompatActivity() {
 //        Thread.sleep(5000L)
 
         open_api.setOnClickListener {
-//            val result = OpenApi.open(false)
-//            Toast.makeText(
-//                this,
-//                if (result) "open hidden api success!" else "open hidden api failed!! result = $result",
-//                Toast.LENGTH_SHORT
-//            ).show()
+            val result = OpenApi.open(false)
+            Toast.makeText(
+                this,
+                if (result) "open hidden api success!" else "open hidden api failed!! result = $result",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         call_api.setOnClickListener {
-//            if (callHiddenApi()) {
-//            Toast.makeText(
-//                this,
-//                "call hidden api success!",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
+            if (callHiddenApi()) {
+            Toast.makeText(
+                this,
+                "call hidden api success!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         }
         hook_api.setOnClickListener {
-//            val result = OpenApi.open(false)
-//            if (result) {
-//                HookUtils.hookActivityInstrumentation()
-//            } else {
-//                Toast.makeText(
-//                    this,
-//                    if (result) "open hidden api success!" else "open hidden api failed!! result = $result",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
+            val result = OpenApi.open(false)
+            if (result) {
+                HookUtils.hookActivityInstrumentation()
+            } else {
+                Toast.makeText(
+                    this,
+                    if (result) "open hidden api success!" else "open hidden api failed!! result = $result",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
