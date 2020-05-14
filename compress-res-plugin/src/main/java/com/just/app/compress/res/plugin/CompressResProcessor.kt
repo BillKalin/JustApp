@@ -22,7 +22,6 @@ public class CompressResProcessor : VariantProcessor {
                 variant.artifacts.get(ArtifactManager.PROCESSED_RES).search { file ->
                     file.name.startsWith(SdkConstants.FN_RES_BASE + SdkConstants.RES_QUALIFIER_SEP) && file.extension == SdkConstants.EXT_RES
                 }.parallelStream().forEach {
-                    println("file src size = ${it.length()}")
                     val srcFileSize = it.length()
                     it.zipRes {
                         !NO_COMPRESS.contains(it.name.substringAfter('.'))
