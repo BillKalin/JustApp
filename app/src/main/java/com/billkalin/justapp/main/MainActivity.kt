@@ -32,12 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         call_api.setOnClickListener {
             if (callHiddenApi()) {
-            Toast.makeText(
-                this,
-                "call hidden api success!",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+                Toast.makeText(
+                    this,
+                    "call hidden api success!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         hook_api.setOnClickListener {
             val result = OpenApi.open(false)
@@ -50,6 +50,9 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+        acc_float.setOnClickListener {
+            FloatAccessibilityService.showFloatWindow(null)
         }
     }
 
