@@ -30,7 +30,7 @@ class FloatAccessibilityService : AccessibilityService() {
                     height = 200
                     text = "Float Window"
                     setOnClickListener {
-                        hideFloatWindow()
+//                        hideFloatWindow()
                     }
                 }
             }
@@ -43,6 +43,13 @@ class FloatAccessibilityService : AccessibilityService() {
                 width = WindowManager.LayoutParams.MATCH_PARENT
                 height = WindowManager.LayoutParams.MATCH_PARENT
             }
+
+            mView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
             wms.addView(mView, layParams)
         }
