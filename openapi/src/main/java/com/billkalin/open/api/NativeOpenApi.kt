@@ -9,4 +9,6 @@ object NativeOpenApi {
         }
     }
     external fun openApi(targetSdkVersion: Int): Int
+
+    external fun openJdwp(open: Boolean)
 }

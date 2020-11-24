@@ -13,7 +13,14 @@ cmake_minimum_required(VERSION 3.4.1)
 add_library( # Sets the name of the library.
         reflect-api
         SHARED
-        main.cpp art.cpp )
+        jdpa-debug.h
+        jdpa-debug.cpp
+        # fake library
+        fake_dlfcn.h
+        fake_dlfcn.cpp
+        main.cpp
+        art.cpp
+        )
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
