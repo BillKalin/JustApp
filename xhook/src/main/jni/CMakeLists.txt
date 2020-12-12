@@ -1,0 +1,41 @@
+cmake_minimum_required(VERSION 3.4.1)
+
+PROJECT(xHook C)
+
+SET(TARGET xhook)
+
+SET(
+        ${TARGET}_SOURCE_FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/xhook.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/xh_core.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/xh_elf.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/xh_jni.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/xh_log.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/xh_util.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/xh_version.c
+)
+
+ADD_LIBRARY(
+        ${TARGET}
+        STATIC
+        ${${TARGET}_SOURCE_FILES}
+)
+
+TARGET_INCLUDE_DIRECTORIES(
+        ${TARGET}
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+TARGET_COMPILE_OPTIONS(
+        ${TARGET}
+        PRIVATE $<$<COMPILE_LANGUAGE:C>:-std=c11>
+)
+
+FIND_LIBRARY(
+        log-lib log
+)
+
+TARGET_LINK_LIBRARIES(
+        ${TARGET}
+        PUBLIC ${log-lib}
+)

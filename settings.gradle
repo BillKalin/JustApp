@@ -1,3 +1,5 @@
+include ':xhook_wrapper'
+include ':xhook'
 rootProject.name='JustApp'
 include ':app'
 include ':performance'

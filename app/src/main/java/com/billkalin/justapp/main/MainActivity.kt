@@ -2,6 +2,7 @@ package com.billkalin.justapp.main
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +12,13 @@ import com.billkalin.hook.HookUtils
 import com.billkalin.justapp.R
 import com.billkalin.open.api.NativeOpenApi
 import com.billkalin.open.api.OpenApi
+import com.billkalin.xnative.xhook.wrapper.IoMonitor
+import com.billkalin.xnative.xhook.wrapper.IoMonitorJni
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import java.io.File
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
@@ -60,6 +66,19 @@ class MainActivity : AppCompatActivity() {
         }
         acc_float.setOnClickListener {
             FloatAccessibilityService.showFloatWindow(null)
+        }
+
+        io_monitor_btn.setOnClickListener {
+            IoMonitorJni().doHook()
+
+            android.os.Handler(Looper.getMainLooper()).postDelayed({
+                val file = File(filesDir, "text.txt")
+                file.writeText("texttextxt")
+
+                val texts = file.readText()
+
+            }, 2000L)
+
         }
     }
 

@@ -11,7 +11,7 @@
 template<typename T>
 //寻找变量偏移量
 int findOffset(void *start, int regionStart, int regionEnd, T value) {
-    if (NULL == start || regionStart < 0 || regionEnd <= 0)
+    if (nullptr == start || regionStart < 0 || regionEnd <= 0)
         return -1;
     char *c_start = (char *) start;
     for (int i = regionStart; i < regionEnd; i += 4) {
