@@ -19,6 +19,10 @@ add_library( # Sets the name of the library.
         io_monitor.cpp
         ioutils.h
         ioutils.cpp
+        io_detector.h
+        io_detector.cpp
+        io_collector.h
+        io_collector.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a

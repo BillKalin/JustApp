@@ -68,16 +68,19 @@ class MainActivity : AppCompatActivity() {
             FloatAccessibilityService.showFloatWindow(null)
         }
 
-        io_monitor_btn.setOnClickListener {
-            IoMonitorJni().doHook()
+        IoMonitorJni().doHook()
 
-            android.os.Handler(Looper.getMainLooper()).postDelayed({
+        io_monitor_btn.setOnClickListener {
+//            Thread(Runnable {
                 val file = File(filesDir, "text.txt")
-                file.writeText("texttextxt")
+//                file.writeText("texttextxt")
 
                 val texts = file.readText()
-
-            }, 2000L)
+//            }).start()
+//            android.os.Handler(Looper.getMainLooper()).postDelayed({
+//
+//
+//            }, 2000L)
 
         }
     }
