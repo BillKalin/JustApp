@@ -14,19 +14,24 @@
 #include <unordered_map>
 #include <vector>
 #include "io_collector.h"
+#include "Singleton.h"
 
-class IoDetector {
+class IoDetector : public Singleton<IoDetector> {
+    friend class Singleton<IoDetector>;
 public:
+
+    //为了能够让程序员显式的禁用某个函数，C++11 标准引入了一个新特性："=delete"函数。程序员只需在函数声明后上“=delete;”，就可将该函数禁用。
     IoDetector(const IoDetector &) = delete;
 
     IoDetector &operator=(IoDetector const &) = delete;
 
-    static IoDetector &Get();
-
     void
     OnOpen(const char *pathname, int flag, mode_t mode, int open_ret, JavaContext &javaContext);
-    void OnRead(int fd, const void* buffer, size_t buf_size, ssize_t ret, long cost);
-    void OnWrite(int fd, const void* buffer, size_t buf_size, ssize_t ret, long cost);
+
+    void OnRead(int fd, const void *buffer, size_t buf_size, ssize_t ret, long cost);
+
+    void OnWrite(int fd, const void *buffer, size_t buf_size, ssize_t ret, long cost);
+
     void onClose(int fd, int ret_id);
 
 private:

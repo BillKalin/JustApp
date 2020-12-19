@@ -130,7 +130,7 @@ static void DoProxyReadLogic(const char *pathname, int flag, mode_t mode, int re
     free(thread_name);
     free(stack_trace);
 
-    IoDetector::Get().OnOpen(pathname, flag, mode, ret, javaContext);
+    IoDetector::getInstance().OnOpen(pathname, flag, mode, ret, javaContext);
 
     env->DeleteLocalRef(ktobj);
     env->DeleteLocalRef(threadname);
@@ -145,7 +145,7 @@ size_t ProxyRead(int fd, void *buffer, size_t size) {
     long start = GetTickTimeMicros();
     ssize_t ret = origin_read(fd, buffer, size);
     long cost = GetTickTimeMicros() - start;
-    IoDetector::Get().OnRead(fd, buffer, size, ret, cost);
+    IoDetector::getInstance().OnRead(fd, buffer, size, ret, cost);
     return ret;
 }
 
@@ -157,7 +157,7 @@ size_t ProxyReadChk(int fd, void *buffer, size_t count, size_t buff_size) {
     long start = GetTickTimeMicros();
     ssize_t ret = origin_read_chk(fd, buffer, count, buff_size);
     long cost = GetTickTimeMicros() - start;
-    IoDetector::Get().OnRead(fd, buffer, count, ret, cost);
+    IoDetector::getInstance().OnRead(fd, buffer, count, ret, cost);
     return ret;
 }
 
@@ -169,7 +169,7 @@ ssize_t ProxyWrite(int fd, const void *buffer, size_t size) {
     long start = GetTickTimeMicros();
     ssize_t ret = origin_write(fd, buffer, size);
     long cost = GetTickTimeMicros() - start;
-    IoDetector::Get().OnWrite(fd, buffer, size, ret, cost);
+    IoDetector::getInstance().OnWrite(fd, buffer, size, ret, cost);
     return ret;
 }
 
@@ -181,7 +181,7 @@ ssize_t ProxyWriteChk(int fd, const void *buffer, size_t count, size_t buf_size)
     long start = GetTickTimeMicros();
     ssize_t ret = origin_write_chk(fd, buffer, count, buf_size);
     long cost = GetTickTimeMicros() - start;
-    IoDetector::Get().OnWrite(fd, buffer, count, ret, cost);
+    IoDetector::getInstance().OnWrite(fd, buffer, count, ret, cost);
     return ret;
 }
 
@@ -191,7 +191,7 @@ int ProxyClose(int fd) {
         return origin_close(fd);
     }
     int ret_id = origin_close(fd);
-    IoDetector::Get().onClose(fd, ret_id);
+    IoDetector::getInstance().onClose(fd, ret_id);
     return ret_id;
 }
 

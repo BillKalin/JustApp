@@ -6,11 +6,6 @@
 #include <thread>
 #include "ioutils.h"
 
-IoDetector &IoDetector::Get() {
-    static IoDetector instance;
-    return instance;
-}
-
 IoDetector::IoDetector() {
     LOGD("IoDetector()");
     exit_ = false;
