@@ -4,6 +4,8 @@
 #include <sys/types.h>
 #include <mutex>
 #include <unordered_map>
+#include "ioutils.h"
+#include <android/log.h>
 
 #ifndef JUSTAPP_IO_COLLECTOR_H
 #define JUSTAPP_IO_COLLECTOR_H
@@ -29,8 +31,12 @@ public:
     const std::string path_;
     const JavaContext javaContext_;
 
-    long cost_time;
-    int file_size;
+    long file_size = 0;
+    long total_rw_time = 0;
+    int op_count = 0;
+    long op_size = 0;
+    long rw_cost_time = 0;
+    int64_t last_rw_time = 0;
 };
 
 class IoCollector {
@@ -41,6 +47,7 @@ public:
     std::shared_ptr<IoInfo> OnClose(int fd, int ret_id);
 
 private:
+    void CountRWInfo(int fd, long op_size, long rw_cost);
     std::unordered_map<int, std::shared_ptr<IoInfo>> map;
 };
 

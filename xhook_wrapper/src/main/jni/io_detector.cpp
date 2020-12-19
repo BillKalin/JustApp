@@ -7,7 +7,6 @@
 #include "ioutils.h"
 
 IoDetector &IoDetector::Get() {
-    LOGD("IoDetector, Get()");
     static IoDetector instance;
     return instance;
 }
@@ -33,6 +32,8 @@ void IoDetector::detect() {
             break;
         }
 
+        LOGD("detect : path = %s, file_size=%ld, op_count=%d, cost_time=%ld, stack_trace=%s", ioinfo->path_.c_str(),
+             ioinfo->file_size, ioinfo->op_count, ioinfo->rw_cost_time, ioinfo->javaContext_.stack_.c_str());
 
         ioinfo = nullptr;
     }

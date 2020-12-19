@@ -142,9 +142,9 @@ size_t ProxyRead(int fd, void *buffer, size_t size) {
     if (!IsMainThread()) {
         return origin_read(fd, buffer, size);
     }
-    long start = GetTickMicros();
+    long start = GetTickTimeMicros();
     ssize_t ret = origin_read(fd, buffer, size);
-    long cost = GetTickMicros() - start;
+    long cost = GetTickTimeMicros() - start;
     IoDetector::Get().OnRead(fd, buffer, size, ret, cost);
     return ret;
 }
@@ -154,9 +154,9 @@ size_t ProxyReadChk(int fd, void *buffer, size_t count, size_t buff_size) {
     if (!IsMainThread()) {
         return origin_read_chk(fd, buffer, count, buff_size);
     }
-    long start = GetTickMicros();
+    long start = GetTickTimeMicros();
     ssize_t ret = origin_read_chk(fd, buffer, count, buff_size);
-    long cost = GetTickMicros() - start;
+    long cost = GetTickTimeMicros() - start;
     IoDetector::Get().OnRead(fd, buffer, count, ret, cost);
     return ret;
 }
@@ -166,9 +166,9 @@ ssize_t ProxyWrite(int fd, const void *buffer, size_t size) {
     if (!IsMainThread()) {
         return origin_write(fd, buffer, size);
     }
-    long start = GetTickMicros();
+    long start = GetTickTimeMicros();
     ssize_t ret = origin_write(fd, buffer, size);
-    long cost = GetTickMicros() - start;
+    long cost = GetTickTimeMicros() - start;
     IoDetector::Get().OnWrite(fd, buffer, size, ret, cost);
     return ret;
 }
@@ -178,9 +178,9 @@ ssize_t ProxyWriteChk(int fd, const void *buffer, size_t count, size_t buf_size)
     if (!IsMainThread()) {
         return origin_write_chk(fd, buffer, count, buf_size);
     }
-    long start = GetTickMicros();
+    long start = GetTickTimeMicros();
     ssize_t ret = origin_write_chk(fd, buffer, count, buf_size);
-    long cost = GetTickMicros() - start;
+    long cost = GetTickTimeMicros() - start;
     IoDetector::Get().OnWrite(fd, buffer, count, ret, cost);
     return ret;
 }

@@ -32,7 +32,10 @@ bool IsMainThread();
 
 char *jstringToChars(JNIEnv *env, jstring string);
 
-long GetTickMicros();
+int64_t GetSystemTimeMicros();
+int64_t GetSystemTimeMilliSeconds();
+
+long GetTickTimeMicros();
 
 int GetFileSize(const char *path);
 
