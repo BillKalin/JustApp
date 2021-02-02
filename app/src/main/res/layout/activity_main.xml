@@ -40,4 +40,11 @@
         android:layout_height="wrap_content"
         android:text="Io Monitor"
         />
+
+    <Button
+        android:id="@+id/bundle_feature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bundle Feature"
+        />
 </LinearLayout>

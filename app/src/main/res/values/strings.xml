@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JustApp</string>
+    <string name="title_feature_device">Device info</string>
 </resources>

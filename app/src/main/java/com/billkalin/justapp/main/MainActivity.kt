@@ -1,24 +1,29 @@
 package com.billkalin.justapp.main
 
 import android.app.Activity
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.billkalin.hook.HookUtils
+import com.billkalin.justapp.JustApp
 import com.billkalin.justapp.R
+import com.billkalin.justapp.bundle.DeviceFeature
 import com.billkalin.open.api.NativeOpenApi
 import com.billkalin.open.api.OpenApi
-import com.billkalin.xnative.xhook.wrapper.IoMonitor
 import com.billkalin.xnative.xhook.wrapper.IoMonitorJni
+import com.google.android.play.core.splitcompat.SplitCompat
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
+import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import java.io.File
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
@@ -27,12 +32,19 @@ class MainActivity : AppCompatActivity() {
         val TAG = MainActivity::class.java.simpleName
     }
 
+    private val DEVICE_FEATURE = "feature_device"
+    private lateinit var splitManager: SplitInstallManager
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        SplitCompat.installActivity(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 //        Thread.sleep(5000L)
-
         open_api.setOnClickListener {
             val result = false//OpenApi.open(false)
             getSomeThings()
@@ -72,16 +84,59 @@ class MainActivity : AppCompatActivity() {
 
         io_monitor_btn.setOnClickListener {
 //            Thread(Runnable {
-                val file = File(filesDir, "text.txt")
+            val file = File(filesDir, "text.txt")
 //                file.writeText("texttextxt")
 
-                val texts = file.readText()
+            val texts = file.readText()
 //            }).start()
 //            android.os.Handler(Looper.getMainLooper()).postDelayed({
 //
 //
 //            }, 2000L)
 
+        }
+
+        bundle_feature.setOnClickListener {
+            launchAndInstallFeature(DEVICE_FEATURE)
+        }
+
+        splitManager = SplitInstallManagerFactory.create(this).apply {
+            registerListener(installListener)
+        }
+    }
+
+    private val installListener = SplitInstallStateUpdatedListener { state ->
+        when (state.status()) {
+            SplitInstallSessionStatus.INSTALLED -> {
+
+            }
+            SplitInstallSessionStatus.FAILED -> {
+
+            }
+            SplitInstallSessionStatus.DOWNLOADED -> {
+
+            }
+            SplitInstallSessionStatus.INSTALLING -> {
+
+            }
+            SplitInstallSessionStatus.CANCELED -> {
+
+            }
+            SplitInstallSessionStatus.CANCELING -> {
+
+            }
+            SplitInstallSessionStatus.DOWNLOADING -> {
+
+            }
+            SplitInstallSessionStatus.PENDING -> {
+
+            }
+            SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> {
+
+            }
+            SplitInstallSessionStatus.UNKNOWN -> {
+
+            }
         }
     }
 
@@ -119,14 +174,54 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "times = $times, ${Thread.currentThread().name}")
         }
     }
-}
 
-class MyViewModel : ViewModel() {
-
-    fun test() {
-        viewModelScope.launch {
-
+    private fun launchAndInstallFeature(featureName: String) {
+        //已安装该模块
+        if (splitManager.installedModules.contains(featureName)) {
+            Log.d(TAG, "launchAndInstallFeature = $featureName is installed")
+            getDeviceFeature()?.apply {
+                initFeature(JustApp.instance)
+                val model = getDeviceModel()
+                val pkg = getPackageName()
+                Log.d(TAG, "launchAndInstallFeature model = $model is pkg = $pkg")
+            }
+            val intent = Intent().apply {
+                component = ComponentName(
+                    packageName,
+                    "com.billkalin.feature.device.DeviceActivity"
+                )
+            }
+            startActivity(intent)
+            return
+        }
+        val installRequest = SplitInstallRequest.newBuilder().addModule(featureName).build()
+        splitManager.startInstall(installRequest).addOnSuccessListener {
+            /* getDeviceFeature()?.apply {
+                 initFeature(JustApp.instance)
+                 val model = getDeviceModel()
+                 val pkg = getPackageName()
+                 Log.d(TAG, "launchAndInstallFeature addOnSuccessListener: model = $model is pkg = $pkg")
+             }*/
+            val intent = Intent().apply {
+                component = ComponentName(
+                    packageName,
+                    "com.billkalin.feature.device.DeviceActivity"
+                )
+            }
+            startActivity(intent)
+        }.addOnFailureListener {
+            Log.d(TAG, "launchAndInstallFeature addOnFailureListener: error = $it")
         }
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        splitManager.unregisterListener(installListener)
+    }
+
+    private fun getDeviceFeature(): DeviceFeature? {
+        return Class.forName("com.billkalin.feature.device.DeviceFeatureImpl")
+            .newInstance() as? DeviceFeature
+    }
 }
