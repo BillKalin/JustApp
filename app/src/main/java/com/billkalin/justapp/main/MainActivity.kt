@@ -35,11 +35,6 @@ class MainActivity : AppCompatActivity() {
     private val DEVICE_FEATURE = "feature_device"
     private lateinit var splitManager: SplitInstallManager
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase)
-        SplitCompat.installActivity(this)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
