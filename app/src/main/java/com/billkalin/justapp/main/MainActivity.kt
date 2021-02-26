@@ -78,17 +78,12 @@ class MainActivity : AppCompatActivity() {
         IoMonitorJni().doHook()
 
         io_monitor_btn.setOnClickListener {
-//            Thread(Runnable {
-            val file = File(filesDir, "text.txt")
-//                file.writeText("texttextxt")
-
+            val file = File(filesDir, "text.txt").apply {
+                if (!exists()) {
+                    appendText("test text")
+                }
+            }
             val texts = file.readText()
-//            }).start()
-//            android.os.Handler(Looper.getMainLooper()).postDelayed({
-//
-//
-//            }, 2000L)
-
         }
 
         bundle_feature.setOnClickListener {
