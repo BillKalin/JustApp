@@ -12,6 +12,7 @@ import com.billkalin.hook.HookUtils
 import com.billkalin.justapp.JustApp
 import com.billkalin.justapp.R
 import com.billkalin.justapp.bundle.DeviceFeature
+import com.billkalin.justapp.crash.CrashCatcher
 import com.billkalin.open.api.NativeOpenApi
 import com.billkalin.open.api.OpenApi
 import com.billkalin.xnative.xhook.wrapper.IoMonitorJni
@@ -88,6 +89,19 @@ class MainActivity : AppCompatActivity() {
 
         bundle_feature.setOnClickListener {
             launchAndInstallFeature(DEVICE_FEATURE)
+        }
+
+        install_crash_handler.setOnClickListener {
+            CrashCatcher.install(Thread.UncaughtExceptionHandler { t, e ->
+                e.printStackTrace()
+                Toast.makeText(this, "crash catched please see the logcat!!", Toast.LENGTH_LONG).show()
+            })
+        }
+        uninstall_crash_handler.setOnClickListener {
+            CrashCatcher.unInstall()
+        }
+        crash_handler.setOnClickListener {
+            throw IllegalStateException("just test crash catcher !!")
         }
 
         splitManager = SplitInstallManagerFactory.create(this).apply {

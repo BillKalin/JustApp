@@ -38,13 +38,38 @@
         android:id="@+id/io_monitor_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Io Monitor"
-        />
+        android:text="Io Monitor" />
 
     <Button
         android:id="@+id/bundle_feature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bundle Feature"
-        />
+        android:text="Bundle Feature" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/install_crash_handler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Install CrashHandler" />
+
+        <Button
+            android:id="@+id/uninstall_crash_handler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="UnInstall CrashHandler" />
+
+        <Button
+            android:id="@+id/crash_handler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Crash Producer" />
+    </LinearLayout>
 </LinearLayout>
