@@ -34,13 +34,29 @@
         android:layout_marginTop="10dp"
         android:text="Accessibility Float Window" />
 
-    <Button
-        android:id="@+id/io_monitor_btn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Io Monitor" />
+        android:orientation="horizontal">
 
-    <Button
+        <com.billkalin.justapp.main.CustomButton
+            android:id="@+id/io_monitor_init_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="Io Monitor Init" />
+
+        <com.billkalin.justapp.main.CustomButton
+            android:id="@+id/io_monitor_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="Io Monitor" />
+    </LinearLayout>
+
+    <com.billkalin.justapp.main.CustomButton
         android:id="@+id/bundle_feature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,4 +88,25 @@
             android:layout_weight="1"
             android:text="Crash Producer" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/start_single_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="SingleTask Activity" />
+
+    <Button
+        android:id="@+id/load_apk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Load Apk" />
+
+    <Button
+        android:id="@+id/write_info_to_apk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Write info to Apk" />
 </LinearLayout>

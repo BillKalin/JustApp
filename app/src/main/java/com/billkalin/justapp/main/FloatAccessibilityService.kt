@@ -16,9 +16,9 @@ class FloatAccessibilityService : AccessibilityService() {
 
 
     companion object {
-        private lateinit var mService: Context
+        private var mService: Context? = null
         private val wms: WindowManager
-            get() = mService.getSystemService(Service.WINDOW_SERVICE) as WindowManager
+            get() = mService?.getSystemService(Service.WINDOW_SERVICE) as WindowManager
 
         private var mView: View? = null
 
