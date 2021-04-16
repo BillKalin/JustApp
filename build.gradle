@@ -20,11 +20,9 @@ buildscript {
         classpath "com.just.app.plugin:just-gradle-plugin:1.0.0"
         classpath "com.just.app.plugin:permission-check-plugin:1.0.0"
         classpath "com.just.app.plugin:r-inline-plugin:1.0.0"
-        classpath  "com.just.app.plugin:compress-res-plugin:1.0.0"
-        classpath  "com.just.app.plugin:list-artifact-plugin:1.0.0"
-
-//        classpath "com.didiglobal.booster:booster-gradle-plugin:$booster_version"
-//        classpath "com.didiglobal.booster:booster-task-list-artifact:$booster_version"
+        classpath "com.just.app.plugin:compress-res-plugin:1.0.0"
+        classpath "com.just.app.plugin:list-artifact-plugin:1.0.0"
+        classpath "com.just.app.plugin:qzone-hot-fix-plugin:1.0.0"
         // NOTE: Do not place your application dependencies here; they  belong
         // in the individual module build.gradle files
     }

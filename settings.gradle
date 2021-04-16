@@ -17,3 +17,6 @@ include ':feature_device'
 include ':dexdeps'
 include ':io_monitor'
 include ':xhook'
+include ':qzone-hot-fix-plugin'
+
+
