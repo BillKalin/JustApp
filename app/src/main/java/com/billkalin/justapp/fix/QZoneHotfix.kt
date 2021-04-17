@@ -40,7 +40,7 @@ object QZoneHotfix {
             return
         }
         sharePreference = app.getSharedPreferences(app.packageName, Context.MODE_PRIVATE)
-        fixed = sharePreference.getBoolean(HOF_FIX_PATCHED, false)
+        fixed = sharePreference.getBoolean(HOF_FIX_PATCHED, true)
         if (!fixed)
             return
 

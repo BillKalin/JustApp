@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.billkalin.android.qq.fix.QFixTool
 import com.billkalin.hook.HookUtils
 import com.billkalin.justapp.JustApp
 import com.billkalin.justapp.R
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         load_apk.setOnClickListener(this)
         write_info_to_apk.setOnClickListener(this)
         hot_fix.setOnClickListener(this)
+        qq_hot_fix.setOnClickListener(this)
         splitManager = SplitInstallManagerFactory.create(this).apply {
             registerListener(installListener)
         }
@@ -274,6 +276,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     "hot fix dex parch success, please click the SingleTask Activity button.",
                     Toast.LENGTH_LONG
                 ).show()
+            }
+            R.id.qq_hot_fix -> {
+                val applicationClass = "L${JustApp::class.java.name.replace('.', '/')};"
+                Log.d(TAG, "qq_hot_fix -> $applicationClass")
+                QFixTool().nativeResolveClass(arrayOf(applicationClass), longArrayOf(2104), 1)
             }
         }
     }
