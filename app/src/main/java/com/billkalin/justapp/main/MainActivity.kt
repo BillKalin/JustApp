@@ -12,11 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.billkalin.android.qq.fix.QFixTool
 import com.billkalin.hook.HookUtils
 import com.billkalin.justapp.JustApp
 import com.billkalin.justapp.R
 import com.billkalin.justapp.bundle.DeviceFeature
 import com.billkalin.justapp.crash.CrashCatcher
+import com.billkalin.justapp.fix.QZoneHotfix
 import com.billkalin.open.api.NativeOpenApi
 import com.billkalin.open.api.OpenApi
 import com.billkalin.xnative.xhook.wrapper.IoMonitorJni
@@ -64,6 +66,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         start_single_task.setOnClickListener(this)
         load_apk.setOnClickListener(this)
         write_info_to_apk.setOnClickListener(this)
+        hot_fix.setOnClickListener(this)
+        qq_hot_fix.setOnClickListener(this)
         splitManager = SplitInstallManagerFactory.create(this).apply {
             registerListener(installListener)
         }
@@ -263,6 +267,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.write_info_to_apk -> {
 
+            }
+            R.id.hot_fix -> {
+                QZoneHotfix.enableHotFix(this)
+                QZoneHotfix.fix(JustApp.instance)
+                Toast.makeText(
+                    this,
+                    "hot fix dex parch success, please click the SingleTask Activity button.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.qq_hot_fix -> {
+                val applicationClass = "L${JustApp::class.java.name.replace('.', '/')};"
+                Log.d(TAG, "qq_hot_fix -> $applicationClass")
+                QFixTool().nativeResolveClass(arrayOf(applicationClass), longArrayOf(2104), 1)
             }
         }
     }
