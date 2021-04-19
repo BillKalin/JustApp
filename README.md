@@ -38,5 +38,16 @@
 
 ## r-inline-plugin
 
-    Android R类内联插件, 用于APK瘦身  
-  
+    Android R类内联插件, 用于APK瘦身
+
+## io_monitor
+
+    参考腾讯开源项目Matrix的io优化，hook文件读写来判定文件读写的上的优化
+
+## qzone-hot-fix-plugin
+
+    QQ空间热修复方案中，在类的构造函数中插桩代码的插件代码
+
+## qq-hot-fix-tool
+
+    手Q热修复方案：native的加载补丁dex中的class
