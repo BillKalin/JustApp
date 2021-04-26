@@ -23,7 +23,8 @@ const static char *ARRAY_RESOLVE_CLASS[ARRAY_SIZE_RESOlVE_CLASS] = {
         "vResolveClass"
 };
 
-void* (*g_pDvmFindLoadedClass_Addr)(const char*);
-void* (*g_pDvmResolveClass_Addr)(const void*, unsigned int, int);
+void *(*g_pDvmFindLoadedClass_Addr)(const char *);
+
+void *(*g_pDvmResolveClass_Addr)(const void *, unsigned int, int);
 
 #endif //JUSTAPP_QQ_HOTFIX_H

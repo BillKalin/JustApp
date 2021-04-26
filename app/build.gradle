@@ -53,4 +53,5 @@ dependencies {
     implementation project(path: ':hook')
     implementation project(path: ':io_monitor')
     implementation project(path: ':qq-hot-fix-tool')
+    implementation project(path: ':breakpad')
 }
