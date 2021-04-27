@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.billkalin.android.qq.fix.QFixTool
+import com.billkalin.breakpad.NativeCrashHandler
 import com.billkalin.hook.HookUtils
 import com.billkalin.justapp.JustApp
 import com.billkalin.justapp.R
@@ -32,7 +33,6 @@ import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
-import java.lang.UnsupportedOperationException
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.nio.ByteBuffer
@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         write_info_to_apk.setOnClickListener(this)
         hot_fix.setOnClickListener(this)
         qq_hot_fix.setOnClickListener(this)
+        native_crash_handler.setOnClickListener(this)
+        native_crash.setOnClickListener(this)
         splitManager = SplitInstallManagerFactory.create(this).apply {
             registerListener(installListener)
         }
@@ -281,6 +283,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val applicationClass = "L${JustApp::class.java.name.replace('.', '/')};"
                 Log.d(TAG, "qq_hot_fix -> $applicationClass")
                 QFixTool().nativeResolveClass(arrayOf(applicationClass), longArrayOf(2104), 1)
+            }
+            R.id.native_crash_handler -> {
+                val dumpDir = File(filesDir, "crash").apply {
+                    if (!exists()) {
+                        mkdirs()
+                    }
+                }
+                NativeCrashHandler.init(dumpDir.absolutePath)
+            }
+            R.id.native_crash -> {
+                NativeCrashHandler.testCrash()
             }
         }
     }
