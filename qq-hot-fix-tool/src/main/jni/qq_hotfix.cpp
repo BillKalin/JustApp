@@ -3,6 +3,7 @@
 //
 
 #include "qq_hotfix.h"
+#include "convert.h"
 
 extern "C"
 JNIEXPORT void JNICALL
@@ -87,4 +88,24 @@ Java_com_billkalin_android_qq_fix_QFixTool_nativeResolveClass(JNIEnv *env, jobje
         env->ReleaseLongArrayElements(reinterpret_cast<jlongArray>(class_idxs), classIdArray, 0);
         LOGD("open libdvm.so failed...");
     }
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_billkalin_android_qq_fix_QFixTool_convertLayoutFile(JNIEnv *env,
+                                                            jobject thiz, jstring pkg,
+                                                             jstring layout_name,
+                                                             jstring file_path,
+                                                             jstring out_file) {
+    const char *pkgName = env->GetStringUTFChars(pkg, nullptr);
+    const char *layoutName = env->GetStringUTFChars(layout_name, nullptr);
+    const char *filePath = env->GetStringUTFChars(file_path, nullptr);
+    const char *outFile = env->GetStringUTFChars(out_file, nullptr);
+
+    convert(filePath, layoutName, pkgName, outFile);
+
+    env->ReleaseStringUTFChars(pkg, pkgName);
+    env->ReleaseStringUTFChars(layout_name, layoutName);
+    env->ReleaseStringUTFChars(file_path, filePath);
+    env->ReleaseStringUTFChars(out_file, outFile);
 }

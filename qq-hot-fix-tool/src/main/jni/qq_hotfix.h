@@ -4,6 +4,7 @@
 #include <jni.h>
 #include <android/log.h>
 #include <dlfcn.h>
+#include "convert.h"
 
 #ifndef JUSTAPP_QQ_HOTFIX_H
 #define JUSTAPP_QQ_HOTFIX_H

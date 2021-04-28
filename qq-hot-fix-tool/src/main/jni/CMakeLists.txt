@@ -15,6 +15,17 @@ add_library( # Sets the name of the library.
         SHARED
         qq_hotfix.h
         qq_hotfix.cpp
+        stringprintf.h
+        stringprintf.cpp
+        tinyxml2.h
+        tinyxml2.cpp
+        convert.h
+        convert.cpp
+        java_lang_builder.h
+        java_lang_builder.cpp
+        dex_layout_compiler.h
+        util.h
+        util.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a

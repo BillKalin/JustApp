@@ -69,7 +69,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         hot_fix.setOnClickListener(this)
         qq_hot_fix.setOnClickListener(this)
         native_crash_handler.setOnClickListener(this)
-        native_crash.setOnClickListener(this)
+        test_native_crash.setOnClickListener(this)
+        convert_layout.setOnClickListener(this)
         splitManager = SplitInstallManagerFactory.create(this).apply {
             registerListener(installListener)
         }
@@ -292,9 +293,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 NativeCrashHandler.init(dumpDir.absolutePath)
             }
-            R.id.native_crash -> {
-                NativeCrashHandler.testCrash()
+            R.id.test_native_crash -> {
+                Thread(Runnable {
+                    NativeCrashHandler.testCrash()
+                }, "test_crash_thread_NativeCrashHandler").start()
             }
+            R.id.convert_layout -> {
+                Xml2Java()
+            }
+        }
+    }
+
+    private fun Xml2Java() {
+        MainScope().launch {
+            val outFile = File(filesDir, "MainActivity.java")
+            val sourceFile = File(filesDir, "activity_main.xml")
+            withContext(Dispatchers.IO) {
+                assets.open("activity_main.xml").use {
+                    sourceFile.outputStream().use { bw ->
+                        bw.write(it.readBytes())
+                    }
+                }
+            }
+            val pkgName = packageName
+            val layoutName = "activity_main"
+            QFixTool().convertLayoutFile(
+                pkgName,
+                layoutName,
+                sourceFile.absolutePath,
+                outFile.absolutePath
+            )
         }
     }
 
