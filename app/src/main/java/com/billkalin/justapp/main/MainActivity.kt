@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.billkalin.android.hot.quickhotfix.QuickHotFix
 import com.billkalin.android.qq.fix.QFixTool
 import com.billkalin.breakpad.NativeCrashHandler
 import com.billkalin.hook.HookUtils
@@ -19,6 +20,7 @@ import com.billkalin.justapp.JustApp
 import com.billkalin.justapp.R
 import com.billkalin.justapp.bundle.DeviceFeature
 import com.billkalin.justapp.crash.CrashCatcher
+import com.billkalin.justapp.crash.CrashPrinter
 import com.billkalin.justapp.fix.QZoneHotfix
 import com.billkalin.open.api.NativeOpenApi
 import com.billkalin.open.api.OpenApi
@@ -254,12 +256,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.start_single_task -> {
                 //连续点击触发
+                val fixCrashPrinter = object : QuickHotFix {
+                    override fun dispatch(methodname: String, parameterName: Array<*>): Any? {
+                        Log.d(TAG, "methodname = $methodname")
+                        Toast.makeText(JustApp.instance, "From QuickFix method", Toast.LENGTH_LONG).show()
+                        return null
+                    }
+                }
+
+                val field = CrashPrinter::class.java.getDeclaredField("mChange").apply {
+                    isAccessible = true
+                }
+                field.set(null, fixCrashPrinter)
+
                 Handler(Looper.getMainLooper()).postDelayed(Runnable {
                     //正常启动时，只会启动一个Activity
 //                    startActivity(Intent().apply {
 //                        component = ComponentName(this@MainActivity, SingleTaskActivity::class.java)
 //                    })
                     //会变成standard模式启动
+
                     startActivityForResult(Intent().apply {
                         component = ComponentName(this@MainActivity, SingleTaskActivity::class.java)
                     }, 15000)

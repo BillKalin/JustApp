@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'just-gradle-plugin'
+apply plugin: 'quick-fix'
 //apply plugin: 'com.didiglobal.booster'
 
 android {
@@ -54,4 +55,7 @@ dependencies {
     implementation project(path: ':io_monitor')
     implementation project(path: ':qq-hot-fix-tool')
     implementation project(path: ':breakpad')
+    implementation project(path: ':quickfix')
+    implementation project(path: ':quickfix-common')
+
 }

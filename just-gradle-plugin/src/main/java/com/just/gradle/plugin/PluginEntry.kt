@@ -11,8 +11,6 @@ public class PluginEntry : Plugin<Project> {
     override fun apply(project: Project) {
         when {
             project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.dynamic-feature") -> {
-                println("applicationapplicationapplicationapplication")
-
                 project.extensions.getByType(AppExtension::class.java).let { appExtension ->
                     appExtension.registerTransform(MainTransformer(project))
                     project.afterEvaluate {

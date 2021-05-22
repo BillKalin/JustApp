@@ -22,3 +22,6 @@ include ':qq-hot-fix-tool'
 include ':breakpad'
 
 
+include ':quickfix'
+include ':quickfix-base-plugin'
+include ':quickfix-common'
