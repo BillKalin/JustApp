@@ -355,7 +355,7 @@ class QuickFixClassInsert : ClassTransformer {
                         Opcodes.INVOKESTATIC,
                         owner,
                         "valueOf",
-                        "(F)Ljava/lang/Long;"
+                        "(J)Ljava/lang/Long;"
                     )
                 )
                 insnList.add(InsnNode(Opcodes.AASTORE))
