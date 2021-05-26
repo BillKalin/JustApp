@@ -121,6 +121,13 @@
             android:text="QZone Hot fix" />
 
         <Button
+            android:id="@+id/robust_hot_fix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Robust hot fix" />
+
+        <Button
             android:id="@+id/qq_hot_fix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

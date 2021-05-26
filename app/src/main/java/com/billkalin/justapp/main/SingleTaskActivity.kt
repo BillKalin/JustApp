@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import com.billkalin.android.hot.qucikfix.common.Fix
 import com.billkalin.justapp.R
 import com.billkalin.justapp.crash.CrashPrinter
 import kotlinx.android.synthetic.main.activity_single_task.*
@@ -30,6 +31,7 @@ class SingleTaskActivity : AppCompatActivity() {
 
     }
 
+    @Fix
     fun onClick(view: View) {
         when (view.id) {
             R.id.back_btn -> {
@@ -41,6 +43,7 @@ class SingleTaskActivity : AppCompatActivity() {
         }
     }
 
+    @Fix
     private fun test() {
         back_btn.post { Log.i(TAG, "[view.post] >>>> 1 ") }
         CrashPrinter().printText("install jdwp[pkwfk[w")

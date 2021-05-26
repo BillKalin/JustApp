@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.billkalin.android.hot.qucikfix.common.ReflectUtils
 import com.billkalin.android.hot.quickhotfix.QuickHotFix
 import com.billkalin.android.qq.fix.QFixTool
 import com.billkalin.breakpad.NativeCrashHandler
@@ -30,6 +31,7 @@ import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
+import dalvik.system.DexClassLoader
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import java.io.File
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         native_crash_handler.setOnClickListener(this)
         test_native_crash.setOnClickListener(this)
         convert_layout.setOnClickListener(this)
+        robust_hot_fix.setOnClickListener(this)
         splitManager = SplitInstallManagerFactory.create(this).apply {
             registerListener(installListener)
         }
@@ -259,7 +262,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val fixCrashPrinter = object : QuickHotFix {
                     override fun dispatch(methodname: String, parameterName: Array<*>): Any? {
                         Log.d(TAG, "methodname = $methodname")
-                        Toast.makeText(JustApp.instance, "From QuickFix method", Toast.LENGTH_LONG).show()
+                        Toast.makeText(JustApp.instance, "From QuickFix method", Toast.LENGTH_LONG)
+                            .show()
                         return null
                     }
                 }
@@ -317,6 +321,51 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.convert_layout -> {
                 Xml2Java()
             }
+            R.id.robust_hot_fix -> {
+                robustHotFix()
+            }
+        }
+    }
+
+    private fun robustHotFix() {
+        MainScope().launch {
+            //copy quick hot fix dex
+            val dexPath = withContext(Dispatchers.IO) {
+                val file = File(filesDir, "quickfix").let {
+                    if (!it.exists()) it.mkdirs()
+                    File(it, "quickfix.dex")
+                }
+                assets.open("hotfix.dex").use { istream ->
+
+                    file.outputStream().use { os ->
+                        os.write(istream.readBytes())
+                    }
+                }
+                file.absolutePath
+            }
+
+//            withContext(Dispatchers.IO) {
+                val optimizedDir = File(filesDir, "quickfix_opt").let {
+                    if (!it.exists()) it.mkdirs()
+                    it.absolutePath
+                }
+                val dexLoader = DexClassLoader(dexPath, optimizedDir, null, classLoader)
+                val clssName = "com.billkalin.quick.fix.patch.SingleTaskActivityPatch"
+                val singleTaskActivityPatchClass = dexLoader.loadClass(clssName)
+                val singleTaskActivity = SingleTaskActivity()
+                val constructor = singleTaskActivityPatchClass.getDeclaredConstructor(Any::class.java)
+                val singleTaskActivityPatch = constructor.newInstance(singleTaskActivity)
+                ReflectUtils.invokeMethod("test", singleTaskActivityPatchClass, singleTaskActivityPatch, arrayOf(), arrayOf())
+//            }
+            val fixChange = object : QuickHotFix {
+                override fun dispatch(methodname: String, parameterName: Array<*>): Any? {
+                    if (methodname == "test") {
+                        Toast.makeText(JustApp.instance, "hot fix !!", Toast.LENGTH_LONG).show()
+                    }
+                    return ""
+                }
+            }
+            ReflectUtils.setStaticFieldValue("mChange", fixChange, SingleTaskActivity::class.java)
         }
     }
 

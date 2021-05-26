@@ -10,7 +10,7 @@ class QuickFixEntry : Plugin<Project> {
         println("${this::class.simpleName} apply()")
 //        if (target.plugins.hasPlugin(ApplicationPlugin::class.java)) {
             target.extensions.getByType(AppExtension::class.java).apply {
-                registerTransform(QuickFixTransformer(target, this))
+//                registerTransform(QuickFixTransformer(target, this))
             }
 //        }
     }
