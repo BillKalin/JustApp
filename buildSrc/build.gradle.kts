@@ -7,6 +7,15 @@ plugins {
     `kotlin-dsl`
 }
 
+gradlePlugin {
+    plugins {
+        register("quick-fix") {
+            id = "quick-fix"
+            implementationClass = "com.billkalin.plugin.QuickFixEntry"
+        }
+    }
+}
+
 dependencies {
     gradleApi()
     implementation("com.android.tools.build:gradle:3.6.1")

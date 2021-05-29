@@ -1,7 +1,6 @@
 @file:JvmName("IoMonitorJniKt")
 package com.billkalin.xnative.xhook.wrapper
 
-import androidx.annotation.Keep
 
 class IoMonitorJni {
 
@@ -14,10 +13,8 @@ class IoMonitorJni {
     external fun doUnHook(): Boolean
 }
 
-@Keep
 fun getJavaContext(): JavaContext = JavaContext()
 
-@Keep
 class JavaContext {
     private var stackString: String = ""
     private var threadName: String = ""

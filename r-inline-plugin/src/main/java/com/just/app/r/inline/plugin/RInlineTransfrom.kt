@@ -1,5 +1,6 @@
 package com.just.app.r.inline.plugin
 
+import JustApp.r.inline.plugin.Build
 import com.base.app.asm.ClassTransformer
 import com.base.app.spi.transformer.ArtifactManager
 import com.base.app.spi.transformer.ArtifactManager.Companion.SYMBOL_LIST
@@ -8,7 +9,6 @@ import com.base.app.spi.util.asIterable
 import com.base.app.spi.util.file
 import com.base.app.spi.util.touch
 import com.google.auto.service.AutoService
-import com.just.app.plugin.r.inline.plugin.Build
 import com.just.app.r.inline.plugin.SymbolsList.getInt
 import com.just.app.r.inline.plugin.SymbolsList.parseRtxtFile
 import jdk.internal.org.objectweb.asm.Opcodes

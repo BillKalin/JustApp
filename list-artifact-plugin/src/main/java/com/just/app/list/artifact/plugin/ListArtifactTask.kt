@@ -9,7 +9,6 @@ import com.base.app.spi.util.file
 import com.base.app.spi.util.project
 import com.base.app.spi.util.scope
 import com.base.app.spi.util.touch
-import com.just.app.plugin.list.artifact.plugin.Build
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.FileSystemLocation
 import org.gradle.api.tasks.TaskAction
@@ -34,7 +33,7 @@ open class ListArtifactTask : DefaultTask() {
         }.toMap()
 
         val logger =
-            File(variant.project.buildDir, "reports").file(Build.ARTIFACT).file(variant.name)
+            File(variant.project.buildDir, "reports").file("build").file(variant.name)
                 .file("reports.txt").touch().printWriter()
 
         artifactTypes.entries.map { it ->

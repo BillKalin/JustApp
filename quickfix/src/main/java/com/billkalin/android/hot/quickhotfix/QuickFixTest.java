@@ -1,7 +1,13 @@
 /*
 package com.billkalin.android.hot.quickhotfix;
 
-class QuickFixTest {
+ class SuperClass {
+     public void aaa() {
+
+        }
+}
+
+class QuickFixTest extends SuperClass {
 
     public static QuickHotFix mChange;
 
@@ -24,4 +30,5 @@ class QuickFixTest {
     }
 
 }
+
 */

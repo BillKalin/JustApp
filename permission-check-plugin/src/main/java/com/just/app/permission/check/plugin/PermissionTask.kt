@@ -1,10 +1,10 @@
 package com.just.app.permission.check.plugin
 
+import JustApp.permission.check.plugin.Build
 import com.android.SdkConstants
 import com.android.build.gradle.api.BaseVariant
 import com.base.app.spi.transformer.ArtifactManager
 import com.base.app.spi.util.*
-import com.just.app.plugin.permission.check.plugin.Build
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import java.io.File

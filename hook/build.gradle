@@ -1,7 +1,0 @@
-apply from:"../build-script/library.gradle"
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-dependencies {
-    implementation project(path: ':kreflect')
-}
