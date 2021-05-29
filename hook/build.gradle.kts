@@ -1,4 +1,3 @@
-//apply(from = "../build-script/library.gradle.kts")
 plugins {
     id("com.android.library")
     kotlin("android")

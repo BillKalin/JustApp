@@ -1,4 +1,3 @@
-//apply(from = "../build-script/plugin.gradle.kts")
 plugins {
     java
     id("kotlin")
