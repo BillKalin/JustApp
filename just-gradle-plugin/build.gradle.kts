@@ -5,7 +5,6 @@ plugins {
     id("io.johnsonlee.buildprops")
     `kotlin-dsl`
 }
-
 gradlePlugin {
     plugins {
         register("just-gradle-plugin") {
@@ -21,28 +20,14 @@ dependencies {
     api(project(path = ":just-app-common"))
 }
 
-val group = "com.just.app.plugin"
-val artifactName = "just-gradle-plugin"
-val versionName = "1.0.0"
+group = "com.just.app.plugin"
+version = "1.0.1"
 
-val sourcesJar by tasks.registering(Jar::class) {
-    classifier = "sources"
-    from(sourceSets.main.get().allSource)
-}
 
 publishing {
     repositories {
         maven {
-            url = uri("../plugin")
-        }
-    }
-    publications {
-        register("mavenJava", MavenPublication::class.java) {
-            from(components["java"])
-//            artifact(sourcesJar.get())
-            groupId = group
-            this.version = versionName
-            artifactId = artifactName
+            url = uri("../plugin/")
         }
     }
 }

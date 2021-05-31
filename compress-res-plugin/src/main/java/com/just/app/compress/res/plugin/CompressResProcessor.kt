@@ -1,5 +1,6 @@
 package com.just.app.compress.res.plugin
 
+import JustApp.compress.res.plugin.Build
 import com.android.SdkConstants
 import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.tasks.ProcessAndroidResources
@@ -7,7 +8,6 @@ import com.base.app.spi.VariantProcessor
 import com.base.app.spi.transformer.ArtifactManager
 import com.base.app.spi.util.*
 import com.google.auto.service.AutoService
-import com.just.app.plugin.compress.res.plugin.Build
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import java.io.File
 import java.util.zip.ZipEntry

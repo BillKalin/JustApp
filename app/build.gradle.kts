@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     id("just-gradle-plugin")
-    id("quick-fix")
+    id("quickfix-patch-plugin")
 }
 
 android {
